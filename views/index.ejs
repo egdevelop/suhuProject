@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/d8ab9fc50e.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Temperature Monitoring System</title>
+  </head>
+  <body>
+    <!-- As a heading -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <span class="navbar-brand">TMS</span>
+    </div>
+  </nav>
+
+  <main>
+      <div class="container">
+          <br>
+          <br>
+          <div class="baris">
+              <div class="card-suhu pink">
+                <div class="baris1 pisah">
+                    <h6>Suhu 1</h6>
+                    <div class="baris1">
+                        <p class="kecil" id="max1"></p>
+                        <p class="kecil ms-2" id="min1"></p>
+                    </div>
+                </div>
+                  <div class="center">
+                      <h1 id="suhu1"></h1>
+                  </div>
+              </div>
+              <div class="card-suhu biru">
+                <div class="baris1 pisah">
+                    <h6>Suhu 2</h6>
+                    <div class="baris1">
+                        <p class="kecil" id="max2"></p>
+                        <p class="kecil ms-2" id="min2"></p>
+                    </div>
+                </div>
+                  <div class="center">
+                      <h1 id="suhu2"></h1>
+                  </div>
+              </div>
+              <div class="card-suhu kuning">
+                  <div class="baris1 pisah">
+                      <h6>Suhu 3</h6>
+                      <div class="baris1">
+                          <p class="kecil" id="max3"></p>
+                          <p class="kecil ms-2" id="min3"></p>
+                      </div>
+                  </div>
+                  <div class="center">
+                      <h1 id="suhu3"></h1>
+                  </div>
+              </div>
+              <div class="card-suhu hijau">
+                <div class="baris1 pisah">
+                    <h6>Suhu 4</h6>
+                    <div class="baris1">
+                        <p class="kecil" id="max4"></p>
+                        <p class="kecil ms-2" id="min4"></p>
+                    </div>
+                </div>
+                  <div class="center">
+                      <h1 id="suhu4"></h1>
+                  </div>
+              </div>
+          </div>
+          <br>
+          <br>
+          <div class="charts">
+            <canvas id="myChart"></canvas>
+        </div>
+          <br>
+          <div class="baris mb-5">
+              <button id="btnPdf" class="btn-custom hijau">Download PDF</button>
+              <button id="btnTemp" class="btn-custom hijau">Set Min & Max Temp</button>
+              <button id="btnExcel" class="btn-custom hijau">Download Excel</button>
+          </div>
+      </div>
+  </main>
+  <div class="popup-container" id="cardPdf">
+      <div class="popup">
+          <div class="popup-head baris1 pisah">
+            <h5>Download PDF</h5>
+            <a href="#" class="float-right" id="closePdf">x</a>
+          </div>
+        <form action="/posts/pdf" method="post">
+            <label for="#">Dari Tanggal</label>
+            <input type="date" class="form-control" name="dari" placeholder="Dari Tanggal..">
+            <label for="#" class="mt-3">Sampai Tanggal</label>
+            <input type="date" class="form-control" name="sampai" placeholder="Sampai Tanggal..">
+            <div class="d-grid gap-2 mt-3">
+                <button class="btn btn-success hijau" type="submit">S U B M I T</button>
+            </div>
+        </form>
+      </div>
+  </div>
+  <div class="popup-container" id="cardExcel">
+      <div class="popup">
+          <div class="popup-head baris1 pisah">
+            <h5>Download Excel</h5>
+            <a href="#" class="float-right" id="closeExcel">x</a>
+          </div>
+        <form action="/pdf" method="post">
+            <label for="#">Dari Tanggal</label>
+            <input type="date" class="form-control" name="fromdate" placeholder="Dari Tanggal..">
+            <label for="#" class="mt-3">Sampai Tanggal</label>
+            <input type="date" class="form-control" name="fromdate" placeholder="Sampai Tanggal..">
+            <div class="d-grid gap-2 mt-3">
+                <button class="btn btn-success hijau" type="submit">S U B M I T</button>
+            </div>
+        </form>
+      </div>
+  </div>
+  <div class="popup-container" id="cardTemp">
+      <div class="popup">
+          <div class="popup-head baris1 pisah">
+              <h5>Set Min & Max Temp</h5>
+              <a href="#" class="float-right" id="closeTemp">x</a>
+          </div>
+            <label for="3">Max Temp</label>
+            <div class="baris1">
+                <input type="float" class="form-control mm" id="max11" placeholder="1" required>
+                <input type="float" class="form-control mm" id="max21" placeholder="2" required>
+                <input type="float" class="form-control mm" id="max31" placeholder="3" required>
+                <input type="float" class="form-control mm" id="max41" placeholder="4" required>
+            </div>
+            <label class="mt-3" for="3">Min Temp</label>
+            <div class="baris1">
+                <input type="float" class="form-control mm" id="min11" placeholder="1" required>
+                <input type="float" class="form-control mm" id="min21" placeholder="2" required>
+                <input type="float" class="form-control mm" id="min31" placeholder="3" required>
+                <input type="float" class="form-control mm" id="min41" placeholder="4" required>
+            </div>
+            <div class="d-grid gap-2 mt-3">
+                <button class="btn btn-success hijau" id="btnAlarm">S U B M I T</button>
+            </div>
+      </div>
+  </div>
+  <div class="popup-container" id="notifCard">
+    <div class="popup">
+    <div class="popup-head">
+     <a class="float-right" href="#" id="closeNotif">&times;</a>
+    </div>
+         <div class="center">
+           <img src="img/success.gif" alt="gif">
+           <h6 id="pesan1"></h6>
+           <p class="kecil-phone" id="pesan2"></p>
+           <div class="d-grid gap-2">
+             <button id="closeNotif2" class="btn btn-success hijau">O K</a>
+           </div>
+         </div>
+    </div>
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  <script>
+      const body = document.querySelector("body");
+      const cardTemp = document.getElementById("cardTemp");
+      const btnTemp = document.getElementById("btnTemp");
+      const closeTemp = document.getElementById("closeTemp");
+      const cardExcel = document.getElementById("cardExcel");
+      const btnExcel = document.getElementById("btnExcel");
+      const closeExcel = document.getElementById("closeExcel");
+      const cardPdf = document.getElementById("cardPdf");
+      const btnPdf = document.getElementById("btnPdf");
+      const closePdf = document.getElementById("closePdf");
+      const btnAlarm = document.getElementById("btnAlarm");
+      const cardNotif = document.getElementById("notifCard");
+      const closeNotif = document.getElementById("closeNotif");
+      const closeNotif2 = document.getElementById("closeNotif2");
+
+      btnTemp.addEventListener("click",()=>{
+          body.classList.add("pop-act");
+          cardTemp.classList.add("active");
+      });
+
+      closeNotif.addEventListener("click",()=>{
+        body.classList.remove("pop-act");
+        cardNotif.classList.remove("active");
+      })
+      closeNotif2.addEventListener("click",()=>{
+        body.classList.remove("pop-act");
+        cardNotif.classList.remove("active");
+      })
+      
+
+      closeTemp.addEventListener("click",()=>{
+        body.classList.remove("pop-act");
+          cardTemp.classList.remove("active");
+      })
+      btnExcel.addEventListener("click",()=>{
+          body.classList.add("pop-act");
+          cardExcel.classList.add("active");
+      });
+
+      closeExcel.addEventListener("click",()=>{
+        body.classList.remove("pop-act");
+          cardExcel.classList.remove("active");
+      })
+      btnPdf.addEventListener("click",()=>{
+          body.classList.add("pop-act");
+          cardPdf.classList.add("active");
+      });
+
+      closePdf.addEventListener("click",()=>{
+        body.classList.remove("pop-act");
+          cardPdf.classList.remove("active");
+      })
+      btnAlarm.addEventListener("click",()=>{
+          setAlarm();
+      })
+
+      async function setAlarm(){
+                    let dataAlarm = {
+                        'max1': document.querySelector('#max11').value,
+                        'max2': document.querySelector('#max21').value,
+                        'max3': document.querySelector('#max31').value,
+                        'max4': document.querySelector('#max41').value,
+                        'min1': document.querySelector('#min11').value,
+                        'min2': document.querySelector('#min21').value,
+                        'min3': document.querySelector('#min31').value,
+                        'min4': document.querySelector('#min41').value,
+                    }
+                    const Respone = await fetch('http://192.168.18.13:5001/posts/alarm',{
+                        method: 'POST',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(dataAlarm)
+                    });
+                    const content = await Respone.json();
+                    console.log(content);
+                    cardNotif.classList.add("active");
+                    document.getElementById("pesan1").innerHTML = content.pesan1;
+                    document.getElementById("pesan2").innerHTML = content.pesan2;
+                    cardTemp.classList.remove("active");
+                    await getTemp();
+                }
+  </script>
+    <script>
+        var xLables = [];
+        var Data1 = [];
+        var Data2 = [];
+        var Data3 = [];
+        var Data4 = [];
+        const suhu1 = document.getElementById("suhu1");
+        const suhu2 = document.getElementById("suhu2");
+        const suhu3 = document.getElementById("suhu3");
+        const suhu4 = document.getElementById("suhu4");
+        const max1 =  document.getElementById("max1");
+        const max2 =  document.getElementById("max2");
+        const max3 =  document.getElementById("max3");
+        const max4 =  document.getElementById("max4");
+        const min1 =  document.getElementById("min1");
+        const min2 =  document.getElementById("min2");
+        const min3 =  document.getElementById("min3");
+        const min4 =  document.getElementById("min4");
+        
+        var socket = io();
+        createChart()
+        getData1();
+        getTemp();
+        socket.emit("join");
+        socket.on("update",()=>{
+            createChart();
+            getData1();
+            getTemp();
+        })
+
+        
+        async function getTemp(){
+            const Respone = await fetch("/posts/dataAlarm");
+            const data =  await Respone.json();
+
+            max1.innerHTML = '<i class="fas fa-plus-circle"></i>&ensp;' + data[0].suhu1 + '°C';
+            max2.innerHTML = '<i class="fas fa-plus-circle"></i>&ensp;' + data[0].suhu2 + '°C';
+            max3.innerHTML = '<i class="fas fa-plus-circle"></i>&ensp;' + data[0].suhu3 + '°C';
+            max4.innerHTML = '<i class="fas fa-plus-circle"></i>&ensp;' + data[0].suhu4 + '°C';
+            min1.innerHTML = '<i class="fas fa-minus-circle"></i>&ensp;' + data[1].suhu1 + '°C';
+            min2.innerHTML = '<i class="fas fa-minus-circle"></i>&ensp;' + data[1].suhu2 + '°C';
+            min3.innerHTML = '<i class="fas fa-minus-circle"></i>&ensp;' + data[1].suhu3 + '°C';
+            min4.innerHTML = '<i class="fas fa-minus-circle"></i>&ensp;' + data[1].suhu4 + '°C';
+        }
+        async function createChart(){
+            await getData();
+            const ctx = document.getElementById('myChart');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: xLables,
+                    datasets: [{
+                        label: 'Suhu 1',
+                        data: Data1,
+                        fill: false,
+                        backgroundColor:'rgba(254, 94, 131, 1)',
+                        borderColor:'rgba(254, 94, 131, 1)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Suhu 2',
+                        data: Data2,
+                        fill: false,
+                        backgroundColor:'rgba(65, 162, 233, 1)',
+                        borderColor:'rgba(65, 162, 233, 1)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Suhu 3',
+                        data: Data3,
+                        fill: false,
+                        backgroundColor: 'rgba(253, 205, 94, 1)',
+                        borderColor:'rgba(253, 205, 94, 1)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Suhu 4',
+                        data: Data4,
+                        fill: false,
+                        backgroundColor: 'rgba(79, 193, 192, 1)',
+                        borderColor:'rgba(79, 193, 192, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options:{
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            xAxes: [{
+                ticks: {
+                    display: false
+                }
+            }]
+        }
+    }
+            });
+        }
+            
+        async function getData1(){
+            const respone =  await fetch('http://192.168.18.13:5001/posts/data1');
+            const data =  await respone.json();
+
+            suhu1.innerHTML = data[0].suhu1 + '°C';
+            suhu2.innerHTML = data[0].suhu2 + '°C';
+            suhu3.innerHTML = data[0].suhu3 + '°C';
+            suhu4.innerHTML = data[0].suhu4 + '°C';
+        }
+        
+        async function getData(){
+            const respone =  await fetch('http://192.168.18.13:5001/posts/data');
+            const data =  await respone.json();
+            
+            for(var i = 0; i < data.length; i++){
+                    xLables[i] = data[i].waktu;
+                }
+                for(var i = 0; i < data.length; i++){
+                    Data1[i] = data[i].suhu1;
+                }
+                for(var i = 0; i < data.length; i++){
+                    Data2[i] = data[i].suhu2;
+                }
+                for(var i = 0; i < data.length; i++){
+                    Data3[i] = data[i].suhu3;
+                }
+                for(var i = 0; i < data.length; i++){
+                    Data4[i] = data[i].suhu4;
+                }
+        }
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
