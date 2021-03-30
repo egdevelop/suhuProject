@@ -5,13 +5,39 @@ const app = express();
 const server = require("http").createServer(app);
 const io = require('socket.io')(server);
 const fetch = require('node-fetch');
+const exportData = require(`./file`);
 
 app.use(function(req,res,next){
     req.io = io;
     next();
 })
 
-
+router.post("/excel",(req,res)=>{
+    const {dari,sampai} = req.body;
+    db.query("SELECT * FROM dataSuhu WHERE waktu BETWEEN ? AND ?",[dari,sampai],(err,hasil)=>{
+        const columnName = [
+            "Waktu",
+            "Suhu1",
+            "Suhu2",
+            "Suhu3",
+            "Suhu4"
+        ];
+        const tanggal = new Date();
+        const workSheetName = "Output Suhu";
+        const filePath = './xlsx/output' + tanggal + ".xlsx"
+        if(hasil){
+            exportData(hasil,columnName,workSheetName,filePath);
+            res.status(200).json({
+                pesan: "Sukses"
+            })
+        }else{
+            res.status(501).json({
+                dari : dari,
+                sampai: sampai
+            });
+        }
+    })
+})
 
 router.get("/",(req,ress)=>{
     ress.send({

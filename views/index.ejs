@@ -110,15 +110,13 @@
             <h5>Download Excel</h5>
             <a href="#" class="float-right" id="closeExcel">x</a>
           </div>
-        <form action="/pdf" method="post">
             <label for="#">Dari Tanggal</label>
-            <input type="date" class="form-control" name="fromdate" placeholder="Dari Tanggal..">
+            <input type="date" class="form-control" id="darie" placeholder="Dari Tanggal..">
             <label for="#" class="mt-3">Sampai Tanggal</label>
-            <input type="date" class="form-control" name="fromdate" placeholder="Sampai Tanggal..">
+            <input type="date" class="form-control" id="sampaie" placeholder="Sampai Tanggal..">
             <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-success hijau" type="submit">S U B M I T</button>
+                <button class="btn btn-success hijau" onclick="creareXlsx()">S U B M I T</button>
             </div>
-        </form>
       </div>
   </div>
   <div class="popup-container" id="cardTemp">
@@ -222,6 +220,23 @@
       btnAlarm.addEventListener("click",()=>{
           setAlarm();
       })
+
+      async function creareXlsx(){
+          let dataExcel = {
+              'dari': document.querySelector('#darie').value,
+              'sampai': document.querySelector('#sampaie').value
+          }
+          const respone = await fetch('http://192.168.18.13:5001/posts/excel',{
+                        method: 'POST',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(dataExcel)
+                    });
+                    const content = await respone.json();
+                    console.log(content);
+      }
 
       async function setAlarm(){
                     let dataAlarm = {
