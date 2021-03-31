@@ -117,6 +117,9 @@
             <div class="d-grid gap-2 mt-3">
                 <button class="btn btn-success hijau" onclick="creareXlsx()">S U B M I T</button>
             </div>
+            <div id="tempatBtn" class="d-grid gap-2 mt-3">
+
+            </div>
       </div>
   </div>
   <div class="popup-container" id="cardTemp">
@@ -235,7 +238,12 @@
                         body: JSON.stringify(dataExcel)
                     });
                     const content = await respone.json();
-                    console.log(content);
+                    var mydiv = document.getElementById("tempatBtn");
+                    var aTag = document.createElement('a');
+                    aTag.setAttribute('href',`${content.link}`);
+                    aTag.innerText = "DOWNLOAD";
+                    aTag.setAttribute('class', "btn btn-success hijau")
+                    mydiv.appendChild(aTag);
       }
 
       async function setAlarm(){
@@ -296,7 +304,6 @@
             getTemp();
         })
 
-        
         async function getTemp(){
             const Respone = await fetch("/posts/dataAlarm");
             const data =  await Respone.json();

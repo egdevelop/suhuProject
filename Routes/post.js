@@ -24,11 +24,20 @@ router.post("/excel",(req,res)=>{
         ];
         const tanggal = new Date();
         const workSheetName = "Output Suhu";
-        const filePath = './xlsx/output' + tanggal + ".xlsx"
+        const filePath = './public/xlsx/'+ tanggal + dari + '-' + sampai + '.xlsx'
+        const mysqlPath =  '/xlsx/'+ tanggal + dari + '-' + sampai + '.xlsx'
         if(hasil){
             exportData(hasil,columnName,workSheetName,filePath);
-            res.status(200).json({
-                pesan: "Sukses"
+            db.query("INSERT INTO dataexcel (nama)VALUES(?)",[mysqlPath],(err,result)=>{
+                if(result){
+                    res.status(200).json({
+                        pesan: "sukses",
+                        link: mysqlPath
+                    })
+                req.io.sockets.emit("download", result);
+                }else{
+                    res.status(501).json(err);
+                }
             })
         }else{
             res.status(501).json({

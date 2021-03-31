@@ -8,6 +8,9 @@ var bodyParser = require('body-parser')
 const io = require('socket.io')(server);
 const ejs = require('ejs');
 const path = require('path');
+const cors = require('cors');
+
+require('dotenv').config();
 
 
 // parse application/x-www-form-urlencoded
@@ -16,6 +19,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'))
 app.use('/css' , express.static(path.join(__dirname, '/public/css')))
 app.use('/img' , express.static(path.join(__dirname, '/public/img')))
+app.use('/xlsx' , express.static(path.join(__dirname, '/public/xlsx')))
+app.use(cors());
 app.use(function(req,res,next){
   req.io = io;
   next();
