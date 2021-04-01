@@ -124,11 +124,11 @@ router.post("/tusuk",(req,ress)=>{
     })
     db.query("SELECT * FROM alarm",(err,data)=>{
         if(suhu1 >= data[0].suhu1 || suhu2 >= data[0].suhu2 || suhu3 >= data[0].suhu3 || suhu4 >= data[0].suhu4){
-            let pesan =`Hallo TMS admin Suhu max Tercapai:\nSUHU 1 :${suhu1}\nSUHU 2: ${suhu2}\nSUHU 3: ${suhu3}\nSUHU 4: ${suhu4}`
+            let pesan =`Hallo Temperatur Sistem Monitoring admin Suhu max Tercapai:\nSUHU 1 :${suhu1}\nSUHU 2: ${suhu2}\nSUHU 3: ${suhu3}\nSUHU 4: ${suhu4}`
             fetch("https://api.telegram.org/bot1574618477:AAEeS6hl1xU1YHh_8th93Kn_xIBxhXjNHE4/sendMessage?parse_mode=markdown&chat_id=1317328543&text="+ pesan);
         }
         if(suhu1 <= data[1].suhu1 || suhu2 <= data[1].suhu2 || suhu3 <= data[1].suhu3 || suhu4 <= data[1].suhu4){
-            let pesan =`Hallo TMS admin Suhu Min Tercapai:\nSUHU 1 :${suhu1}\nSUHU 2: ${suhu2}\nSUHU 3: ${suhu3}\nSUHU 4: ${suhu4}`
+            let pesan =`Hallo Temperatur Sistem Monitoring admin Suhu Min Tercapai:\nSUHU 1 :${suhu1}\nSUHU 2: ${suhu2}\nSUHU 3: ${suhu3}\nSUHU 4: ${suhu4}`
             fetch("https://api.telegram.org/bot1574618477:AAEeS6hl1xU1YHh_8th93Kn_xIBxhXjNHE4/sendMessage?parse_mode=markdown&chat_id=1317328543&text="+ pesan);
         }
 
