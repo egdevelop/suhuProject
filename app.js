@@ -50,5 +50,5 @@ io.on("connection", (socket) => {
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 server.listen(5001, () => {
-    console.log("http://192.168.18.13:5001");
+    console.log("http://bryanzz.ddns.net:5001");
   });

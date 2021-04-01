@@ -16,7 +16,7 @@
     <!-- As a heading -->
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
-      <span class="navbar-brand">TMS</span>
+      <span class="navbar-brand">Temperatur Sistem Monitoring</span>
     </div>
   </nav>
 
@@ -130,17 +130,29 @@
           </div>
             <label for="3">Max Temp</label>
             <div class="baris1">
-                <input type="float" class="form-control mm" id="max11" placeholder="1" required>
-                <input type="float" class="form-control mm" id="max21" placeholder="2" required>
-                <input type="float" class="form-control mm" id="max31" placeholder="3" required>
-                <input type="float" class="form-control mm" id="max41" placeholder="4" required>
+                <label for="1" class="mt-2">1:&ensp;</label>
+                <input type="float" class="form-control mm" id="max11" required>
+                <label for="1" class="mt-2">2:&ensp;</label>
+                <input type="float" class="form-control mm" id="max21" required>
+            </div>
+            <div class="baris1">
+                <label for="1" class="mt-2">3:&ensp;</label>
+                <input type="float" class="form-control mm" id="max31" required>
+                <label for="1" class="mt-2">4:&ensp;</label>
+                <input type="float" class="form-control mm" id="max41" required>
             </div>
             <label class="mt-3" for="3">Min Temp</label>
             <div class="baris1">
-                <input type="float" class="form-control mm" id="min11" placeholder="1" required>
-                <input type="float" class="form-control mm" id="min21" placeholder="2" required>
-                <input type="float" class="form-control mm" id="min31" placeholder="3" required>
-                <input type="float" class="form-control mm" id="min41" placeholder="4" required>
+                <label for="1" class="mt-2">1:&ensp;</label>
+                <input type="float" class="form-control mm" id="min11" required>
+                <label for="1" class="mt-2">2:&ensp;</label>
+                <input type="float" class="form-control mm" id="min21" required>
+            </div>
+            <div class="baris1">
+                <label for="1" class="mt-2">3:&ensp;</label>
+                <input type="float" class="form-control mm" id="min31" required>
+                <label for="1" class="mt-2">4:&ensp;</label>
+                <input type="float" class="form-control mm" id="min41" required>
             </div>
             <div class="d-grid gap-2 mt-3">
                 <button class="btn btn-success hijau" id="btnAlarm">S U B M I T</button>
@@ -229,7 +241,7 @@
               'dari': document.querySelector('#darie').value,
               'sampai': document.querySelector('#sampaie').value
           }
-          const respone = await fetch('http://192.168.18.13:5001/posts/excel',{
+          const respone = await fetch('http://bryanzz.ddns.net:5001/posts/excel',{
                         method: 'POST',
                         headers: {
                         'Accept': 'application/json',
@@ -257,7 +269,7 @@
                         'min3': document.querySelector('#min31').value,
                         'min4': document.querySelector('#min41').value,
                     }
-                    const Respone = await fetch('http://192.168.18.13:5001/posts/alarm',{
+                    const Respone = await fetch('http://bryanzz.ddns.net:5001/posts/alarm',{
                         method: 'POST',
                         headers: {
                         'Accept': 'application/json',
@@ -316,6 +328,15 @@
             min2.innerHTML = '<i class="fas fa-minus-circle"></i>&ensp;' + data[1].suhu2 + '°C';
             min3.innerHTML = '<i class="fas fa-minus-circle"></i>&ensp;' + data[1].suhu3 + '°C';
             min4.innerHTML = '<i class="fas fa-minus-circle"></i>&ensp;' + data[1].suhu4 + '°C';
+            document.querySelector('#max11').setAttribute('value',data[0].suhu1)
+            document.querySelector('#max21').setAttribute('value',data[0].suhu2)
+            document.querySelector('#max31').setAttribute('value',data[0].suhu3)
+            document.querySelector('#max41').setAttribute('value',data[0].suhu4)
+            document.querySelector('#min11').setAttribute('value',data[1].suhu1)
+            document.querySelector('#min21').setAttribute('value',data[1].suhu2)
+            document.querySelector('#min31').setAttribute('value',data[1].suhu3)
+            document.querySelector('#min41').setAttribute('value',data[1].suhu4)
+
         }
         async function createChart(){
             await getData();
@@ -372,7 +393,7 @@
         }
             
         async function getData1(){
-            const respone =  await fetch('http://192.168.18.13:5001/posts/data1');
+            const respone =  await fetch('http://bryanzz.ddns.net:5001/posts/data1');
             const data =  await respone.json();
 
             suhu1.innerHTML = data[0].suhu1 + '°C';
@@ -382,7 +403,7 @@
         }
         
         async function getData(){
-            const respone =  await fetch('http://192.168.18.13:5001/posts/data');
+            const respone =  await fetch('http://bryanzz.ddns.net:5001/posts/data');
             const data =  await respone.json();
             
             for(var i = 0; i < data.length; i++){
@@ -407,7 +428,7 @@
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTemperatur Sistem Monitoring2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
     -->
   </body>
 </html>
