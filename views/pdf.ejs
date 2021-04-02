@@ -31,12 +31,11 @@
         </thead>
         <tbody>
             <%
-            var dateObj = new Date();
                 for(var i = 0;i < data.length;i++){
             %>       
             <tr>
                 <th scope="row"><%= data[i].id %></th>
-                <td><%= dateObj.getUTCDate(data[i].waktu) + "/" + dateObj.getUTCMonth(data[i].waktu) + 1 + "/" + dateObj.getUTCFullYear(data[i].waktu) %></td>
+                <td><%= data[i].waktu %></td>
                 <td><%= data[i].suhu1 %></td>
                 <td><%= data[i].suhu2 %></td>
                 <td><%= data[i].suhu3 %></td>
